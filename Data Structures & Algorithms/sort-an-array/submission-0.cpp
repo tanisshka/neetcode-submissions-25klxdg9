@@ -1,0 +1,37 @@
+class Solution {
+private:
+    int partition(vector<int>& nums, int low, int high) {
+        int pivot = nums[low];
+        int i = low;
+        int j = high;
+
+        while (i < j) {
+            while (i <= high - 1 && nums[i] <= pivot)
+                i++;
+
+            while (j >= low + 1 && nums[j] > pivot)
+                j--;
+
+            if (i < j)
+                swap(nums[i], nums[j]);
+        }
+
+        swap(nums[low], nums[j]);
+        return j;
+    }
+
+    void QuickSort(vector<int>& nums, int low, int high) {
+        if (low < high) {
+            int pi = partition(nums, low, high);
+
+            QuickSort(nums, low, pi - 1);
+            QuickSort(nums, pi + 1, high);
+        }
+    }
+
+public:
+    vector<int> sortArray(vector<int>& nums) {
+        QuickSort(nums, 0, nums.size() - 1);
+        return nums;
+    }
+};
